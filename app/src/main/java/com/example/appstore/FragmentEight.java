@@ -29,7 +29,10 @@ public class FragmentEight extends BaseMainFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadRootFragment(FragmentSix.newInstance(),FragmentSix.class.getName());
+        if (findChildFragment(FragmentSix.class) == null) {
+
+            loadRootFragment(FragmentSix.newInstance(),FragmentSix.class.getName());
+        }
     }
 
 

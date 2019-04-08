@@ -28,12 +28,14 @@ public class BaseMainFragment extends BaseFragment {
     }
 
 
+
+
     public boolean onBackPressedSupport() {
         if (fragmentManager.getBackStackEntryCount() >= 1) {
             popChild(fragmentManager);
         } else {
             if (this instanceof FragmentEight) {   // 如果是 第一个Fragment 则退出app
-                getActivity().finish();
+                mActivity.finish();
             } else {                                    // 如果不是,则回到第一个Fragment
                 _mBackToFirstListener.onBackToFirstFragment();
             }

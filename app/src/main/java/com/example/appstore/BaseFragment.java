@@ -1,5 +1,6 @@
 package com.example.appstore;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,6 +8,14 @@ import android.support.v4.app.FragmentTransaction;
 public class BaseFragment extends Fragment implements ISupportFragment{
 
     protected FragmentManager fragmentManager;
+    protected BaseActivity mActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        mActivity = (BaseActivity) context;
+        super.onAttach(context);
+    }
+
     /**
      * 添加 Fragment
      *
@@ -36,7 +45,12 @@ public class BaseFragment extends Fragment implements ISupportFragment{
         fragmentTransaction.commitAllowingStateLoss();
 
     }
-
+    /**
+     * 获取栈内的fragment对象
+     */
+    public <T extends ISupportFragment> T findChildFragment(Class<T> fragmentClass) {
+        return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
+    }
     @Override
     public boolean onBackPressedSupport() {
         return false;

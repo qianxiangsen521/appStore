@@ -26,7 +26,9 @@ public class FragmentTab extends BaseMainFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadRootFragment(FragmentTwoTab.newInstance(),FragmentTwoTab.class.getName());
+        if (findChildFragment(FragmentTwoTab.class) == null) {
+            loadRootFragment(FragmentTwoTab.newInstance(),FragmentTwoTab.class.getName());
+        }
     }
 
 }
