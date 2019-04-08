@@ -5,16 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.example.fragment.FragmentOne;
-import com.example.fragment.FragmentThree;
-import com.example.fragment.FragmentTwo;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BaseMainFragment.OnBackToFirstListener {
 
     public FragmentManager fragmentManager;
     public static int mFragCurrentIndex = 0;
@@ -22,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentEight fragmentEight;
     private FragmentSeven fragmentSeven;
     private FragmentTab fragmentTab;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(0);
         switchFragment(mFragCurrentIndex,true);
     }
 
@@ -58,9 +55,17 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(int index, boolean isFirst) {
         if (mFragCurrentIndex == index && !isFirst) {
             //清空全部
-            if (fragmentEight.fragmentManager != null){
+            if (index == 0){
                 if (fragmentEight.fragmentManager.getBackStackEntryCount() >= 1){
                     fragmentEight.fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }
+            }else if (index == 1){
+                if (fragmentSeven.fragmentManager.getBackStackEntryCount() >= 1){
+                    fragmentSeven.fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }
+            }else if (index == 2){
+                if (fragmentTab.fragmentManager.getBackStackEntryCount() >= 1){
+                    fragmentTab.fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 }
             }
             return;
@@ -116,7 +121,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        ISupportFragment activeFragment = SupportHelper.getActiveFragment(getSupportFragmentManager());
+        if (dispatchBackPressedEvent(activeFragment)){
+            return;
+        }
         super.onBackPressed();
+    }
+
+    /**
+     * Dispatch the pop-event. Priority of the top of the stack of Fragment
+     */
+    boolean dispatchBackPressedEvent(ISupportFragment activeFragment) {
+        if (activeFragment != null) {
+            boolean result = activeFragment.onBackPressedSupport();
+            if (result) {
+                return true;
+            }
+
+            Fragment parentFragment = ((Fragment) activeFragment).getParentFragment();
+            if (dispatchBackPressedEvent((BaseMainFragment) parentFragment)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackToFirstFragment() {
+        navigation.setSelectedItemId(R.id.navigation_home);
+
     }
 }

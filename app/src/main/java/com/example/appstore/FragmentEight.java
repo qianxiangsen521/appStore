@@ -3,17 +3,13 @@ package com.example.appstore;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.yokeyword.fragmentation.SupportFragment;
 
 
-public class FragmentEight extends BaseFragment {
+public class FragmentEight extends BaseMainFragment {
 
 
     public static FragmentEight newInstance(){
@@ -33,7 +29,7 @@ public class FragmentEight extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadRootFragment(FragmentSix.newInstance(),"six");
+        loadRootFragment(FragmentSix.newInstance(),FragmentSix.class.getName());
     }
 
 

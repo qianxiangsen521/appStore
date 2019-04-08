@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements ISupportFragment{
 
     protected FragmentManager fragmentManager;
     /**
@@ -35,5 +35,10 @@ public class BaseFragment extends Fragment {
         fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commitAllowingStateLoss();
 
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return false;
     }
 }

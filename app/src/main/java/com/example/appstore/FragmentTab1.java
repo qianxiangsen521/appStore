@@ -25,7 +25,7 @@ public class FragmentTab1 extends BaseFragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText("tab1");
+                textView.setText(FragmentTab1.class.getName());
             }
         });
         return view;

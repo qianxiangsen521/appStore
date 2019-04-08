@@ -3,18 +3,16 @@ package com.example.appstore;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-public class FragmentSix extends BaseFragment {
+public class FragmentTab2 extends BaseFragment {
 
 
-    public static FragmentSix newInstance(){
-        return new FragmentSix();
+    public static FragmentTab2 newInstance() {
+        return new FragmentTab2();
     }
 
     private View view;
@@ -22,11 +20,12 @@ public class FragmentSix extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view  = inflater.inflate(R.layout.fragment_six,null);
-        view.findViewById(R.id.textView).setOnClickListener(new View.OnClickListener() {
+        view = inflater.inflate(R.layout.fragment_tab2, null);
+        final TextView textView = view.findViewById(R.id.text);
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragment(FragmentTab1.newInstance(),FragmentTab1.class.getName());
+                textView.setText(FragmentTab2.class.getName());
             }
         });
         return view;

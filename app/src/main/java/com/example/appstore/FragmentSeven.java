@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentSeven extends BaseFragment {
+public class FragmentSeven extends BaseMainFragment {
 
 
     public static FragmentSeven newInstance() {
@@ -20,9 +20,14 @@ public class FragmentSeven extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_seven, null);
+        view = inflater.inflate(R.layout.fragment_two, null);
 
         return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loadRootFragment(FragmentTwoSix.newInstance(),FragmentTwoSix.class.getName());
+    }
 }

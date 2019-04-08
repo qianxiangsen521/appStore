@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentTab extends BaseFragment {
+public class FragmentTab extends BaseMainFragment {
 
 
     public static FragmentTab newInstance() {
@@ -19,9 +19,14 @@ public class FragmentTab extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_tab, null);
+        view = inflater.inflate(R.layout.fragment_two, null);
 
         return view;
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loadRootFragment(FragmentTwoTab.newInstance(),FragmentTwoTab.class.getName());
     }
 
 }
