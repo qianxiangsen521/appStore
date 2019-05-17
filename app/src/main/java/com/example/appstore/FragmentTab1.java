@@ -1,5 +1,6 @@
 package com.example.appstore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,7 +26,7 @@ public class FragmentTab1 extends BaseFragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(FragmentTab1.class.getName());
+                startActivity(new Intent(mActivity,SettingsActivity.class));
             }
         });
         return view;
